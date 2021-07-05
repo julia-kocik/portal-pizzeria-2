@@ -6,6 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 
 const demoContent = [
@@ -38,6 +40,11 @@ const demoBooking = [
 
 const Dashboard = () => (
   <div className={styles.component}>
+    <div className={styles.dashNav}>
+      <Button variant="contained" color="primary" component={NavLink} className={styles.link} to={`${process.env.PUBLIC_URL}/tables`} activeClassName='active'>Tables</Button>
+      <Button variant="contained" color="primary" component={NavLink} className={styles.link} to={`${process.env.PUBLIC_URL}/kitchen`} activeClassName='active'>Kitchen</Button>
+      <Button variant="contained" color="primary" component={NavLink} className={styles.link} to={`${process.env.PUBLIC_URL}/waiter`} activeClassName='active'>Waiter</Button>
+    </div>
     <Paper className={styles.component}>
       <h3>STATISTICS</h3>
       <Table>

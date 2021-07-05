@@ -2,4 +2,15 @@
 
 .component {
   padding: $base-size;
+  margin-top: 20px;
+}
+
+.link {
+  color: white;
+  margin: 30px 10px 20px 10px;
+}
+
+.dashNav {
+  display: flex;
+  justify-content: flex-end;
 }
