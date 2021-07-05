@@ -21,6 +21,19 @@ const demoContent = [
   {id: '10', date: '1/07/2021', status: 'on the spot', order: 57},
 ];
 
+const demoBooking = [
+  {id: '1', hour: '12:30', event: 'Wedding'},
+  {id: '2', hour: '14:30', event: 'Birthday'},
+  {id: '3', hour: '16:30'},
+  {id: '4', hour: '17:30'},
+  {id: '5', hour: '18:30'},
+  {id: '6', hour: '19:30'},
+  {id: '7', hour: '20:30'},
+  {id: '8', hour: '21:30'},
+  {id: '9', hour: '22:30'},
+  {id: '10',  hour: '23:30'},
+];
+
 
 
 const Dashboard = () => (
@@ -57,30 +70,22 @@ const Dashboard = () => (
       </Table>
     </Paper>
     <Paper className={styles.component}>
-      <h3>STATISTICS</h3>
+      <h3>BOOKING AND EVENTS</h3>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Lp.</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>On the spot/to go</TableCell>
-            <TableCell>Orders</TableCell>
+            <TableCell>Rezerwacje</TableCell>
+            <TableCell>Eventy</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {demoContent.map(row => (
+          {demoBooking.map(row => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {row.hour}
               </TableCell>
               <TableCell>
-                {row.date}
-              </TableCell>
-              <TableCell>
-                {row.status}
-              </TableCell>
-              <TableCell>
-                {row.order}
+                {row.event}
               </TableCell>
             </TableRow>
           ))}
