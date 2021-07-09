@@ -30,6 +30,7 @@ class Waiter extends React.Component {
     const {
       loading: { active, error },
       tables,
+      changeStatus,
     } = this.props;
 
     const renderActions = (status, id) => {
@@ -38,11 +39,13 @@ class Waiter extends React.Component {
           return (
             <>
               <Button
+                onClick={() => changeStatus('thinking', id)}
                 className={styles.link}
               >
                 thinking
               </Button>
               <Button
+                onClick={() => changeStatus('new order', id)}
                 className={styles.link}
               >
                 new order
@@ -52,6 +55,7 @@ class Waiter extends React.Component {
         case 'thinking':
           return (
             <Button
+              onClick={() => changeStatus('new order', id)}
               className={styles.link}
             >
               new order
@@ -60,6 +64,7 @@ class Waiter extends React.Component {
         case 'ordered':
           return (
             <Button
+              onClick={() => changeStatus('prepared', id)}
               className={styles.link}
             >
               prepared
@@ -68,6 +73,7 @@ class Waiter extends React.Component {
         case 'prepared':
           return (
             <Button
+              onClick={() => changeStatus('delivered', id)}
               className={styles.link}
             >
               delivered
@@ -76,6 +82,7 @@ class Waiter extends React.Component {
         case 'delivered':
           return (
             <Button
+              onClick={() => changeStatus('paid', id)}
               className={styles.link}
             >
               paid
@@ -84,6 +91,7 @@ class Waiter extends React.Component {
         case 'paid':
           return (
             <Button
+              onClick={() => changeStatus('free', id)}
               className={styles.link}
             >
               free
@@ -92,6 +100,7 @@ class Waiter extends React.Component {
         case 'new order':
           return (
             <Button
+              onClick={() => changeStatus('prepared', id)}
               className={styles.link}
             >
               prepared

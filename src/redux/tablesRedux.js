@@ -37,6 +37,17 @@ export const fetchFromAPI = () => {
   };
 };
 
+export const changeStatusRequest = (status, tableId) => {
+  return (dispatch, getState) => {
+
+    Axios
+      .patch(`${api.url}/api/${api.tables}/${tableId}`, {status})
+      .then(res => {
+        dispatch(changeStatus({status, id: tableId}));
+      });
+  };
+};
+
 
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
