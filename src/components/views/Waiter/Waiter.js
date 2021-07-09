@@ -9,9 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
+
 class Waiter extends React.Component {
   static propTypes = {
     fetchTables: PropTypes.func,
+    changeStatus: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
@@ -24,50 +26,89 @@ class Waiter extends React.Component {
     fetchTables();
   }
 
-  renderActions(status){
-    switch (status) {
-      case 'free':
-        return (
-          <>
-            <Button>thinking</Button>
-            <Button>new order</Button>
-          </>
-        );
-      case 'thinking':
-        return (
-          <Button>new order</Button>
-        );
-      case 'ordered':
-        return (
-          <Button>prepared</Button>
-        );
-      case 'prepared':
-        return (
-          <Button>delivered</Button>
-        );
-      case 'delivered':
-        return (
-          <Button>paid</Button>
-        );
-      case 'paid':
-        return (
-          <Button>free</Button>
-        );
-      default:
-        return null;
-    }
-  }
-
   render() {
-    const { loading: { active, error }, tables } = this.props;
+    const {
+      loading: { active, error },
+      tables,
+    } = this.props;
 
-    if(active || !tables.length){
+    const renderActions = (status, id) => {
+      switch (status) {
+        case 'free':
+          return (
+            <>
+              <Button
+                className={styles.link}
+              >
+                thinking
+              </Button>
+              <Button
+                className={styles.link}
+              >
+                new order
+              </Button>
+            </>
+          );
+        case 'thinking':
+          return (
+            <Button
+              className={styles.link}
+            >
+              new order
+            </Button>
+          );
+        case 'ordered':
+          return (
+            <Button
+              className={styles.link}
+            >
+              prepared
+            </Button>
+          );
+        case 'prepared':
+          return (
+            <Button
+              className={styles.link}
+            >
+              delivered
+            </Button>
+          );
+        case 'delivered':
+          return (
+            <Button
+              className={styles.link}
+            >
+              paid
+            </Button>
+          );
+        case 'paid':
+          return (
+            <Button
+              className={styles.link}
+            >
+              free
+            </Button>
+          );
+        case 'new order':
+          return (
+            <Button
+              className={styles.link}
+            >
+              prepared
+            </Button>
+          );
+        default:
+          return null;
+      }
+    };
+
+    if (active || !tables.length) {
       return (
         <Paper className={styles.component}>
           <p>Loading...</p>
         </Paper>
       );
-    } else if(error) {
+    } else if (error) {
       return (
         <Paper className={styles.component}>
           <p>Error! Details:</p>
@@ -76,40 +117,43 @@ class Waiter extends React.Component {
       );
     } else {
       return (
-        <Paper className={styles.component}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Table</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Order</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {tables.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.id}
-                  </TableCell>
-                  <TableCell>
-                    {row.status}
-                  </TableCell>
-                  <TableCell>
-                    {row.order && (
-                      <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
-                        {row.order}
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {this.renderActions(row.status)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
+        <div className={styles.component}>
+          <div className={styles.table}>
+            <Paper className={styles.component}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Table</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Order</TableCell>
+                    <TableCell>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {tables.map(row => (
+                    <TableRow key={row.id}>
+                      <TableCell component="th" scope="row">
+                        {row.id}
+                      </TableCell>
+                      <TableCell>{row.status}</TableCell>
+                      <TableCell>
+                        {row.order && (
+                          <Button
+                            to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}
+                            className={styles.link}
+                          >
+                            {row.order}
+                          </Button>
+                        )}
+                      </TableCell>
+                      <TableCell>{renderActions(row.status, row.id)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </div>
+        </div>
       );
     }
   }
